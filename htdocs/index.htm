@@ -139,168 +139,41 @@
 
   <div class="container">
     <div class="row">
-      <h3>The Aid Transparency Tracker</h3>
+          <h3>The Aid Transparency Tracker</h3>
 
-      <p>The Aid Transparency Tracker is an online platform built by <a href=
-      "http://www.publishwhatyoufund.org" target="_blank">Publish What You Fund</a> to monitor
-      progress made by organisations in making their aid information more
-      transparent. The platform includes <b>three separate tools</b>:</p>
+          <p class="lead">The Aid Transparency Tracker has been developed by <a href="http://www.publishwhatyoufund.org" target="_blank">Publish What You Fund</a> to monitor
+          progress made by organisations in making their aid information more
+          transparent. It provides the data for the <a href="http://www.publishwhatyoufund.org/index/2013-index-changes/">2013 Aid Transparency Index</a>.</p>
 
-      <ol>
-        <li>An <b>Implementation Schedules analysis tool</b> which assesses
-        all IATI/Common Standard schedules published to date by organisations
-        as part of their commitment to publish aid information to a common
-        standard by the end of 2015;</li>
-
-        <li>A <b>Data Quality tool</b> which assesses the quality of data
-        being published in IATI XML format;</li>
-
-        <li>A <b>survey tool</b> which assesses aid information published by
-        organisations, in formats other than IATI XML, based on survey data
-        collected manually for the annual Aid Transparency Index.</li>
-      </ol>
-
-      <p>Together, these three tools help assess and compare both the plans or
-      commitments made by organisations in making more aid information
-      available and the status of their actual publication. While the analysis
-      derived from all three tools feeds into the annual <a href=
-      "http://www.publishwhatyoufund.org/index/2013-index-changes/">Aid
-      Transparency Index</a>, the Implementation Schedules analysis tool and
-      the Data Quality tool are designed to be "living
-      tools" that will continue to monitor and reflect
-      changes in organisations' plans or publication outside of the annual Index cycle.
-      More details on the Implementation Schedule
-      analysis tool can be found in the <a href=
-      "http://173.246.104.74/plan/">Plan</a> section of this site, while details on the Data Quality tool and
-      the survey tool can be found in the <a href=
-      "http://173.246.104.74/publish/">Publish</a>
-      section.</p>
-
-      <p>Note: Analysis contained in the 'Plan' pages of the site can be
-      accessed by anyone. Visitors will have limited access to the analysis
-      provided in the 'Publish' pages of
-      the site while data collection and verification for the 2013 Index is
-      underway. Organisations included in the 2013 Index can access full
-      details of their publication by logging in <a href=
-      "http://173.246.104.74/publish/">here</a> with the user details
-      provided. Independent reviewers will also be able to access this information for the
-      organisations they have been allocated to review. All the analysis
-      contained in this platform will be released for public access and review
-      in October when we launch the 2013 Aid Transparency Index.</p>
     </div>
+
     <hr>
+    <div class="row">
+    <span class="span5 offset1">
+    <h1>Plan</h1>
+    <p class="lead">See what organisations have committed to publish.</p>
+    <p><a class="btn btn-large plan-branding" href="">Plan »</a></p>
+    </span>
+    <span class="span5 offset1">
+    <h1>Publish</h1>
+    <p class="lead">See what organisations are<br>currently publishing.</p>
+    <p><a class="btn btn-large publish-branding" href="">Publish »</a></p>
 
-    <div class="row-fluid">
-      <div class="span12 data-views">
-        <center>
-          <h3>Initial publication to IATI</h3>
-        </center>
+    </span>
+    </div>
 
-        <div class="timeline"></div>
 
-        <p>&nbsp;</p>
+    <footer class="footer">
 
-        <p>&nbsp;</p>
+      <div class="container">
+        <p><a href=
+        "http://publishwhatyoufund.org"><img src="/plan/static/img/pwyf_small.png"
+        alt="A project of Publish What You Fund"></a></p>
 
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
-
-        <p>&nbsp;</p>
+        <p>All source code on Github; released under the
+        <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0
+        License</a>.</p>
       </div>
-    </div><script type="text/javascript">
-jQuery(function($) {
-    
-  var url = "/plan/api/publishers/data/publishing_timetable_date_initial/";
-  var dataset = new recline.Model.Dataset({
-      url:url,
-      fields: [
-          {id: 'date', type: 'date', label:"Date"},
-          {id: 'organisation_name', type: 'string', label: "Organisation"},
-          {id: 'organisation_code', type: 'string', label: "Organisation"}
-        ],
-      backend:'json'
-    });
-  var timeliner = new TimelinerView({
-    model: dataset,
-    el: $('.data-views')
-  });
-  timeliner.render();
-});
-
-var TimelinerView = Backbone.View.extend({
-  events: {
-    'click .controls .js-show-toolbox': '_onShowToolbox',
-    'submit .toolbox form': '_onSearch'
-  },
-
-  _onShowToolbox: function(e) {
-    e.preventDefault();
-    if (this.$el.find('.toolbox').hasClass('hideme')) {
-      this.$el.find('.toolbox').removeClass('hideme');
-    } else {
-      this.$el.find('.toolbox').addClass('hideme');
-    }
-  },
-
-  _onSearch: function(e) {
-    e.preventDefault();
-    var query = this.$el.find('.text-query input').val();
-    this.model.query({q: query});
-  },
-
-  render: function() {
-    var self = this;
-    // explicitly set width as otherwise Timeline does extends a bit too far (seems to use window width rather than width of actual div)
-    // $el.width((this.el.width() - 45)/2.0);
-    this.timeline = new recline.View.Timeline({
-      model: this.model,
-      el: this.$el.find('.timeline')
-    });
-    
-    this.timeline.convertRecord = function(record, fields) {
-        var out = this._convertRecord(record);
-        if (out) {
-            out.headline = record.get('organisation_name').toString();
-            out.text = "Initial implementation";
-            out.text += '<p><a class="btn btn-timeline" href="/plan/organisations/' + record.get('organisation_code') + '">Organisation page &raquo;</a></p>';
-        }
-        return out;
-    }
-    this.timeline.render();
-    
-    this.model.fetch();
-
-  }
-});
-
-    </script>
-  </div><footer class="footer"></footer>
-
-  <div class="container">
-    <footer class="footer"></footer>
-
-    <p><footer class="footer"><a href=
-    "http://publishwhatyoufund.org"><img src="/plan/static/img/pwyf_small.png"
-    alt="A project of Publish What You Fund"></a></footer></p>
-
-    <p><footer class="footer">All source code on Github; released under the
-    <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL v3.0
-    License</a>.</footer></p>
-  </div>
+    </footer>
 </body>
 </html>
